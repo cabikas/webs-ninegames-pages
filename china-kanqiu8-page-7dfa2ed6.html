@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>看球吧 · 轻松观赛小站</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #f2f4f6;
+      color: #1e2a3a;
+      line-height: 1.6;
+      padding: 24px 16px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-wrapper {
+      max-width: 1100px;
+      width: 100%;
+    }
+
+    /* ---------- 顶部导航 ---------- */
+    .nav-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      padding: 12px 28px;
+      border-radius: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.04);
+      border: 1px solid #e6eaee;
+      margin-bottom: 48px;
+    }
+
+    .nav-logo {
+      font-weight: 600;
+      font-size: 1.35rem;
+      letter-spacing: 1px;
+      background: #1e2a3a;
+      color: white;
+      padding: 5px 16px;
+      border-radius: 30px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #2b3c4f;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 5px 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s;
+    }
+
+    .nav-links a:hover {
+      border-bottom-color: #7c8b9c;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      background: linear-gradient(145deg, #1f2b39, #3b4b5e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      max-width: 640px;
+      margin: 0 auto;
+      color: #445566;
+      font-size: 1.1rem;
+      background: #eef1f4;
+      padding: 18px 28px;
+      border-radius: 60px;
+      border: 1px solid #dce2e7;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .hero p a {
+      color: #1e2a3a;
+      text-decoration: none;
+      font-weight: 600;
+      border-bottom: 1.5px dashed #7f8d9e;
+      padding-bottom: 1px;
+      transition: 0.2s;
+    }
+
+    .hero p a:hover {
+      border-bottom-style: solid;
+      border-color: #1e2a3a;
+    }
+
+    /* ---------- 核心介绍（分区卡片） ---------- */
+    .section-card {
+      background: #ffffff;
+      border: 1px solid #e2e7ec;
+      border-radius: 24px;
+      padding: 32px 30px;
+      margin-bottom: 28px;
+      box-shadow: 0 8px 18px -10px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0,0,0,0.02);
+      transition: box-shadow 0.25s;
+    }
+
+    .section-card:hover {
+      box-shadow: 0 12px 22px -8px rgba(0,0,0,0.06);
+    }
+
+    .section-card h2 {
+      font-size: 1.5rem;
+      font-weight: 550;
+      letter-spacing: -0.01em;
+      border-left: 5px solid #7c8b9c;
+      padding-left: 18px;
+      margin-bottom: 20px;
+      color: #1d2a38;
+    }
+
+    .section-card p {
+      color: #314251;
+      max-width: 760px;
+    }
+
+    .intro-highlight {
+      background: #f7f9fb;
+      border-radius: 16px;
+      padding: 16px 24px;
+      margin: 24px 0 8px;
+      border-left: 3px solid #b0bec5;
+      font-size: 0.98rem;
+      color: #2a3b4c;
+    }
+
+    /* ---------- 三个场景模块 (flex grid) ---------- */
+    .scene-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin: 28px 0 10px;
+    }
+
+    .scene-item {
+      flex: 1 1 260px;
+      background: #f8fafc;
+      border: 1px solid #e4e9ef;
+      border-radius: 22px;
+      padding: 22px 20px 26px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .scene-item h3 {
+      font-size: 1.2rem;
+      font-weight: 540;
+      margin-bottom: 10px;
+      color: #1c2b3b;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scene-item h3::before {
+      content: "●";
+      font-size: 1.5rem;
+      color: #8a9aa8;
+    }
+
+    .scene-item p {
+      color: #3c4d5e;
+      font-size: 0.97rem;
+    }
+
+    /* ---------- 常见说明 (FAQ 摘要风格) ---------- */
+    .faq-block {
+      background: #ffffff;
+      border: 1px solid #e2e7ec;
+      border-radius: 24px;
+      padding: 28px 30px 32px;
+      margin: 40px 0 32px;
+      box-shadow: 0 8px 18px -10px rgba(0,0,0,0.04);
+    }
+
+    .faq-block h2 {
+      font-size: 1.4rem;
+      font-weight: 550;
+      margin-bottom: 22px;
+      color: #1d2a38;
+    }
+
+    .faq-item {
+      padding: 14px 0;
+      border-bottom: 1px solid #eef2f6;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      font-weight: 550;
+      color: #1d2b3b;
+      margin-bottom: 4px;
+    }
+
+    .faq-answer {
+      color: #46586b;
+      font-size: 0.96rem;
+      padding-left: 8px;
+    }
+
+    .faq-answer a {
+      color: #1e2a3a;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
+      text-decoration-color: #bac5d0;
+      font-weight: 500;
+    }
+
+    .faq-answer a:hover {
+      text-decoration-color: #1e2a3a;
+    }
+
+    /* ---------- 页脚 ---------- */
+    .footer-note {
+      margin-top: 30px;
+      padding: 24px 0 12px;
+      text-align: center;
+      border-top: 1px solid #d9e0e6;
+      color: #5d7082;
+      font-size: 0.88rem;
+    }
+
+    .footer-note a {
+      color: #2b3c4f;
+      text-decoration: none;
+      border-bottom: 1px dotted #a0b0be;
+    }
+
+    /* ---------- 响应式 ---------- */
+    @media (max-width: 700px) {
+      .nav-bar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 20px;
+      }
+
+      .nav-links {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero p {
+        font-size: 1rem;
+        padding: 14px 18px;
+      }
+
+      .section-card {
+        padding: 24px 18px;
+      }
+
+      .faq-block {
+        padding: 22px 18px;
+      }
+
+      .scene-item {
+        flex: 1 1 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .nav-logo {
+        font-size: 1.1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.7rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- 顶部导航 -->
+  <nav class="nav-bar">
+    <span class="nav-logo">看球吧</span>
+    <ul class="nav-links">
+      <li><a href="#intro">介绍</a></li>
+      <li><a href="#scene">场景</a></li>
+      <li><a href="#faq">常见说明</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>看球吧 · 自在观赛</h1>
+    <p>
+      不用复杂切换，在 <a href="https://china-kanqiu8.com">看球吧</a> 里找到自己想看的比赛，
+      就是那样简单的一件事。
+    </p>
+  </div>
+
+  <!-- 核心介绍 -->
+  <section class="section-card" id="intro">
+    <h2>关于看球吧</h2>
+    <p>
+      「看球吧」是围绕赛事直播与回放聚合形成的一个轻量信息站点，它不生产比赛，只是帮喜爱球类运动的人更直接地触达内容。
+      没有冗杂的弹窗，没有过载的广告，呈现的只有干净的导航与分类。
+    </p>
+    <div class="intro-highlight">
+      ⚽ 无论你关注欧洲联赛、本土杯赛，还是偶尔想看看篮球、网球、排球，<strong>看球吧</strong> 都尽量提供直达路径。
+      它适合那些只想安静看完整场比赛、不愿在多层页面里绕路的人。
+    </div>
+    <p style="margin-top: 20px;">
+      很多朋友说，现在想找个纯粹的观赛入口越来越难了。而 <a href="https://china-kanqiu8.com">看球吧</a> 
+      给人的感觉就像巷口那家熟悉的报刊亭——不花哨，但你总能翻到你想要的那本杂志。
+    </p>
+  </section>
+
+  <!-- 三个场景模块 -->
+  <section class="section-card" id="scene">
+    <h2>适合这些看球时刻</h2>
+    <div class="scene-grid">
+      <div class="scene-item">
+        <h3>周末沙发时间</h3>
+        <p>周六晚上懒得动，窝在沙发上想找个焦点战。打开看球吧，比赛列表一目了然，不用在社交平台里翻半天链接。</p>
+      </div>
+      <div class="scene-item">
+        <h3>午休快速浏览</h3>
+        <p>中午一边吃饭一边想确认凌晨那场比分，或者看几分钟关键集锦。轻量的页面加载起来很快，不拖沓。</p>
+      </div>
+      <div class="scene-item">
+        <h3>跟朋友聊赛前</h3>
+        <p>约了球友一起看球，先打开看球吧确认开球时间和频道，还能顺便看看近期赛程，聊起来更有底。</p>
+      </div>
+    </div>
+    <p style="margin-top: 20px; color: #3f5368;">
+      三个场景只是缩影，实际上任何想看球但又不想被复杂导航劝退的时候，<a href="https://china-kanqiu8.com">看球吧</a> 都能帮上一点小忙。
+    </p>
+  </section>
+
+  <!-- 常见说明 (FAQ 摘要) -->
+  <div class="faq-block" id="faq">
+    <h2>常见说明 · 几个小问题</h2>
+
+    <div class="faq-item">
+      <div class="faq-question">看球吧需要注册或安装吗？</div>
+      <div class="faq-answer">不需要。它就是一个信息导航页面，打开浏览器直接使用即可。没有会员机制，也不用下载额外软件。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">覆盖哪些类型的比赛？</div>
+      <div class="faq-answer">主要是足球，也包括篮球、网球、电竞及其他球类赛事。具体列表以 <a href="https://china-kanqiu8.com">看球吧</a> 上实际展示为准，不同时期会有所调整。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">页面上的链接指向哪里？</div>
+      <div class="faq-answer">大部分指向公开的直播流、官方频道或合作平台。看球吧只做整理与引导，不存储或转码任何视频内容。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">遇到链接失效怎么办？</div>
+      <div class="faq-answer">由于赛事版权和直播源时常变动，偶尔会有链接失效。可以稍后再试，或者反馈给站点维护者。通常比赛开始前后链接更新最频繁。</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question">有移动端适配吗？</div>
+      <div class="faq-answer">有的。看球吧页面本身对手机和平板做了响应式适配，在手机上浏览同样简洁，操作不需要缩放。</div>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="footer-note">
+    <p>
+      回到 <a href="https://china-kanqiu8.com">看球吧</a> · 一个简单的观赛起点<br>
+      这里不夸大任何功能，只希望每次想看球的时候，你都能少花一点时间在找路上。
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
